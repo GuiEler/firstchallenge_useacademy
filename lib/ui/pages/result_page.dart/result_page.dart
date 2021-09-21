@@ -18,7 +18,7 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final avaliableHeight = mediaQuery.size.height - mediaQuery.padding.top;
-
+    final percentage = score / length;
     void goHome() {
       Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
           RouteAnimations(
@@ -29,34 +29,90 @@ class ResultPage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: SizedBox(
-          width: double.maxFinite,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset(AppImages.trophy),
-                Column(
-                  children: [
-                    Text(
-                      "Parabéns!",
-                      style: AppTextStyles.heading40,
-                    ),
-                    const SizedBox(height: 16),
-                    Text.rich(
-                      TextSpan(
-                          text: "Você concluiu o quiz",
-                          style: AppTextStyles.body,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: (percentage > 0.66)
+                    ? [
+                        Image.asset(AppImages.trophy),
+                        Column(
                           children: [
-                            TextSpan(
-                                text: "\ncom $score de $length acertos",
-                                style: AppTextStyles.body)
+                            Text(
+                              "Parabéns!",
+                              style: AppTextStyles.heading40,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            Text.rich(
+                              TextSpan(
+                                  text: "Você concluiu o quiz",
+                                  style: AppTextStyles.body,
+                                  children: [
+                                    TextSpan(
+                                        text: "\ncom $score de $length acertos",
+                                        style: AppTextStyles.body)
+                                  ]),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ]
+                    : (percentage > 0.33 && percentage <= 0.66)
+                        ? [
+                            Image.asset(AppImages.secondPlace),
+                            Column(
+                              children: [
+                                Text(
+                                  "Até que você foi bem!",
+                                  style: AppTextStyles.heading40,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                Text.rich(
+                                  TextSpan(
+                                      text: "Você concluiu o quiz",
+                                      style: AppTextStyles.body,
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                "\ncom $score de $length acertos",
+                                            style: AppTextStyles.body)
+                                      ]),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ]
+                        : [
+                            Image.asset(AppImages.thirdPlace),
+                            Column(
+                              children: [
+                                Text(
+                                  "Fica esperto na próxima...",
+                                  style: AppTextStyles.heading40,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                Text.rich(
+                                  TextSpan(
+                                      text: "Você concluiu o quiz",
+                                      style: AppTextStyles.body,
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                "\ncom $score de $length acertos",
+                                            style: AppTextStyles.body)
+                                      ]),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ]),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ]),
+          ),
         ),
       ),
       bottomNavigationBar: SafeArea(
