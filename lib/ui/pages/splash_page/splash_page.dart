@@ -10,7 +10,8 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 2000)).then((_) =>
         Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-            RouteAnimations(route: const HomePage(), duration: 1000)
+            RouteAnimations(
+                    route: const HomePage(), duration: 1000, routeName: '/home')
                 .opacityTransition(0.3),
             (Route<dynamic> route) => false));
     return Scaffold(
@@ -20,7 +21,9 @@ class SplashPage extends StatelessWidget {
         decoration: const BoxDecoration(
           gradient: AppGradients.linear,
         ),
-        child: Image.asset(AppImages.logo),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Image.asset(AppImages.logo)),
       ),
     );
   }

@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class RouteAnimations {
   final Widget route;
   final int duration;
+  final Object? arguments;
+  final String routeName;
 
   RouteAnimations({
     required this.route,
     required this.duration,
+    this.arguments,
+    required this.routeName,
   });
 
   Route slide() {
@@ -25,7 +29,8 @@ class RouteAnimations {
             child: child,
           );
         },
-        transitionDuration: Duration(milliseconds: duration));
+        transitionDuration: Duration(milliseconds: duration),
+        settings: RouteSettings(arguments: arguments, name: routeName));
   }
 
   Route opacityTransition(double opacity) {
@@ -35,6 +40,7 @@ class RouteAnimations {
           var tween = Tween(begin: 0.0, end: 1.0);
           return FadeTransition(opacity: animation.drive(tween), child: child);
         },
-        transitionDuration: Duration(milliseconds: duration));
+        transitionDuration: Duration(milliseconds: duration),
+        settings: RouteSettings(arguments: arguments, name: routeName));
   }
 }
